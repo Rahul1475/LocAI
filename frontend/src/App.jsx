@@ -36,6 +36,18 @@ function App() {
               <FaCircle className="text-info" />
             )}
           </div>
+          <div
+            className="link"
+            onClick={() => setSelectedLLM("gemma:2b")}
+          >
+            gemma:2b
+            {selectedLLM === "gemma:2b" && (
+              <FaCircleCheck className="text-success" />
+            )}
+            {selectedLLM !== "gemma:2b" && (
+              <FaCircle className="text-info" />
+            )}
+          </div>
         </div>
         <div className="col-10 p-0">
           <div className="all_chat">

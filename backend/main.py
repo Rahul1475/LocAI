@@ -1,7 +1,9 @@
 from flask import Flask, request, Response
+from flask_cors import CORS
 import ollama
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 @app.route('/chat', methods=['POST'])
 def chat():

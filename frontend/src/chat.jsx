@@ -6,10 +6,11 @@ import { FaCircleUp } from "react-icons/fa6";
 import { FaCircleXmark } from "react-icons/fa6";
 
 const Chat = ({ selectedLLM }) => {
-    const [prompt, setPrompt] = useState(""); // Change to string
+    const [prompt, setPrompt] = useState("");
+    const [question, setQuestion] = useState("");
     const [response, setResponse] = useState("");
     const [thinking, setThinking] = useState("");
-    const abortControllerRef = useRef(null); // Reference to the AbortController
+    const abortControllerRef = useRef(null);
     const [loading, setLoading] = useState(false);
 
     React.useEffect(() => {
@@ -22,8 +23,9 @@ const Chat = ({ selectedLLM }) => {
         e.preventDefault();
 
         setResponse("");
-        setThinking(""); // Reset thinking content
+        setThinking("");
         setLoading(true);
+        setQuestion(prompt);
         abortControllerRef.current = new AbortController();
 
         try {
@@ -45,7 +47,7 @@ const Chat = ({ selectedLLM }) => {
             // Handle streaming response
             const reader = res.body.getReader();
             const decoder = new TextDecoder();
-            let aiResponse = ""; // To store streamed data
+            let aiResponse = "";
             let is_cleaned = false;
             let cleanedData = "";
             let thinkData = "";
@@ -82,7 +84,8 @@ const Chat = ({ selectedLLM }) => {
                 console.error("Error in streaming:", error);
             }
         } finally {
-            setLoading(false); // Set loading to false after streaming completes or is canceled
+            setPrompt("");
+            setLoading(false);
         }
     };
 
@@ -108,6 +111,13 @@ const Chat = ({ selectedLLM }) => {
     return (
         <div className="chat_container row m-0 p-0 justify-content-center">
             <div className="top_section col-12 p-0 m-0">
+                {question && (
+                    <div className="d-flex justify-content-end ">
+                        <div className="question p-3">{question} : 🧑‍💻</div>
+                    </div>
+                )}
+                {!response && !loading && <div>🚀 Ask me anything...!</div>}
+
                 {loading ? (
                     <span>
                         <span className="spinner-border spinner-border-sm me-2"></span>
@@ -145,8 +155,6 @@ const Chat = ({ selectedLLM }) => {
                         dangerouslySetInnerHTML={{ __html: response }}
                     ></div>
                 )}
-
-                {!response && !loading && <div>🚀 Ask me anything...!</div>}
             </div>
 
             <div className="bottom_section col-11 p-0 m-0">

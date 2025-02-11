@@ -12,13 +12,14 @@ function App() {
         <div className="container-fluid ">
             <div className="row ">
                 <div className="col-2 side_nav ">
+                    <h3 className="text-center mt-3">LocAI</h3>
                     <p className="text-center mt-3">Select your LLM</p>
 
                     <div
                         className="link"
                         onClick={() => setSelectedLLM("llama3.2:3b")}
                     >
-                        Llama
+                        Llama (3 billion)
                         {selectedLLM === "llama3.2:3b" && (
                             <FaCircleCheck className="text-success" />
                         )}
@@ -26,16 +27,15 @@ function App() {
                             <FaCircle className="text-info" />
                         )}
                     </div>
-
                     <div
                         className="link"
-                        onClick={() => setSelectedLLM("deepseek-r1:1.5b")}
+                        onClick={() => setSelectedLLM("phi:2.7b")}
                     >
-                        Deepseek
-                        {selectedLLM === "deepseek-r1:1.5b" && (
+                        Phi (2.7 billion)
+                        {selectedLLM === "phi:2.7b" && (
                             <FaCircleCheck className="text-success" />
                         )}
-                        {selectedLLM !== "deepseek-r1:1.5b" && (
+                        {selectedLLM !== "phi:2.7b" && (
                             <FaCircle className="text-info" />
                         )}
                     </div>
@@ -43,11 +43,23 @@ function App() {
                         className="link"
                         onClick={() => setSelectedLLM("gemma:2b")}
                     >
-                        Gemma
+                        Gemma (2 billion)
                         {selectedLLM === "gemma:2b" && (
                             <FaCircleCheck className="text-success" />
                         )}
                         {selectedLLM !== "gemma:2b" && (
+                            <FaCircle className="text-info" />
+                        )}
+                    </div>
+                    <div
+                        className="link"
+                        onClick={() => setSelectedLLM("deepseek-r1:1.5b")}
+                    >
+                        Deepseek (1.5 billion)
+                        {selectedLLM === "deepseek-r1:1.5b" && (
+                            <FaCircleCheck className="text-success" />
+                        )}
+                        {selectedLLM !== "deepseek-r1:1.5b" && (
                             <FaCircle className="text-info" />
                         )}
                     </div>

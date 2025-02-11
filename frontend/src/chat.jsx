@@ -17,6 +17,7 @@ const Chat = ({ selectedLLM }) => {
         setResponse("");
         setThinking("");
         setPrompt("");
+        setQuestion("");
     }, [selectedLLM]);
 
     const handleSubmit = async (e) => {

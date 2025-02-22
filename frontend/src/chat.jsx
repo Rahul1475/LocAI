@@ -98,9 +98,10 @@ const Chat = ({ selectedLLM }) => {
     };
 
     const clearChat = () => {
-        setResponse(""); // Reset the response
-        setThinking(""); // Reset the thinking content
+        setResponse(""); 
+        setThinking(""); 
         setPrompt("");
+        setQuestion("");
     };
 
     const stopChat = () => {

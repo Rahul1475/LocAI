@@ -70,6 +70,10 @@ body {
     outline: none;
     border: none;
 }
+.bottom_section textarea:disabled {
+    background-color: var(--theme1);
+    color: var(--theme5);
+}
 
 pre {
     background-color: var(--theme2);

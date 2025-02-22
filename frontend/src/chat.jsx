@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import { marked } from "marked";
 import { FaCircleStop } from "react-icons/fa6";
@@ -14,12 +14,19 @@ const Chat = ({ selectedLLM }) => {
     const abortControllerRef = useRef(null);
     const [loading, setLoading] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setResponse("");
         setThinking("");
         setPrompt("");
         setQuestion("");
     }, [selectedLLM]);
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && e.shiftKey) {
+            e.preventDefault();
+            handleSubmit(e);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -164,6 +171,8 @@ const Chat = ({ selectedLLM }) => {
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
                         placeholder="Ask something..."
+                        onKeyDown={handleKeyDown}
+                        disabled={loading}
                     ></textarea>
 
                     <div className="d-flex align-items-center">

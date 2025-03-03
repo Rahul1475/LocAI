@@ -1,12 +1,32 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Chat from "./chat";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
 import { FaCircle } from "react-icons/fa6";
+import { API_BASE_URL } from "./config";
 
 function App() {
   const [selectedLLM, setSelectedLLM] = useState("llama3.2:3b");
+  const [llmList, setLlmList] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/models`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        let llms = data.models.map((llm) => ({
+          model: llm.model,
+          family: llm.details.family,
+          parameter_size: llm.details.parameter_size,
+        }));
+        console.log(llms);
+
+        setLlmList(llms);
+      })
+      .catch((error) => console.error("Error fetching models:", error));
+  }, []);
 
   return (
     <div className="container-fluid ">
@@ -17,7 +37,21 @@ function App() {
           </h3>
           <p className="text-center mt-3">Select your LLM</p>
 
-          <div className="link" onClick={() => setSelectedLLM("llama3.2:3b")}>
+          {llmList.map((llm) => (
+            <div
+              className="link"
+              key={llm.model}
+              onClick={() => setSelectedLLM(llm.model)}
+            >
+              {llm.family} ({llm.parameter_size})
+              {selectedLLM === llm.model && (
+                <FaCircleCheck className="text-success" />
+              )}
+              {selectedLLM !== llm.model && <FaCircle className="text-info" />}
+            </div>
+          ))}
+
+          {/* <div className="link" onClick={() => setSelectedLLM("llama3.2:3b")}>
             Llama (3 billion)
             {selectedLLM === "llama3.2:3b" && (
               <FaCircleCheck className="text-success" />
@@ -51,7 +85,7 @@ function App() {
             {selectedLLM !== "deepseek-r1:1.5b" && (
               <FaCircle className="text-info" />
             )}
-          </div>
+          </div> */}
         </div>
         <div className="col-10 p-0">
           <div className="all_chat">

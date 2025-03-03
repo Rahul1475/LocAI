@@ -1,12 +1,9 @@
-[project]
+[tool.poetry]
 name = "backend"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Rahul Samala",email = "samalarahul@gmail.com"}
-]
+authors = ["Rahul Samala <samalarahul@gmail.com>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -16,7 +13,6 @@ django-cors-headers = "^3.14.0"
 langchain = "^0.3.19"
 langchain-community = "^0.3.18"
 ollama = "^0.4.7"
-
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
